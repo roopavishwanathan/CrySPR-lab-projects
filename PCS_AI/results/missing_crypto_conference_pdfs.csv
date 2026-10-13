@@ -1,0 +1,16 @@
+Paper ID,Title,Year,Conference,Status,Local PDF,PDF Identity,Acquisition Source,Acquisition URL,Pages,Discovery Status
+45b59557f6097531,SAVER: SNARK-Compatible Verifiable Encryption,2024,FC,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+3939be3b3918939b,E2Easy: a Simple Lattice-Based in-Person End-to-End Voting Scheme,2025,FC,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+98d7d647f3f88395,Proofs for Inner Pairing Products and Applications,2021,ASIACRYPT,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+72a8d04950c9cc3b,RoK and Roll - Verifier-Efficient Random Projection for O~(λ)-Size Lattice Arguments - (Extended Abstract),2025,ASIACRYPT,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+2da50f7845c0ede2,Halo Infinite: Proof-Carrying Data from Additive Polynomial Commitments,2021,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+0bc93d9cc4e24008,Accelerating the Delfs-Galbraith Algorithm with Fast Subfield Root Detection,2022,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+f2b0cbce310c52ba,Brakedown: Linear-Time and Field-Agnostic SNARKs for R1CS,2023,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+5401320318f3df90,HERMES: Efficient Ring Packing Using MLWE Ciphertexts and Application to Transciphering,2023,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+e825711e5e1f23c9,Orbweaver: Succinct Linear Functional Commitments from Lattices,2023,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+42acf4f157646ee6,Greyhound: Fast Polynomial Commitments from Lattices,2024,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+216c4f3f6bd379e2,Polynomial Commitments for Galois Rings and Applications to SNARKs Over $\mathbb {Z}_{2^k}$,2025,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+f7cda330df7a2a7a,Faster Polynomial Evaluations for SIMD FHEs and Application to BGV in HElib,2026,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+b1167eb544593fdc,GAPP: Generic Aggregation of Polynomial IOPs,2026,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+d6271011832cdad1,TensorSwitch: Nearly Optimal Polynomial Commitments from Tensor Codes,2026,CRYPTO,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE
+9fb34953edb1981c,WHIR: Reed-Solomon Proximity Testing with Super-Fast Verification,2025,EUROCRYPT,NOT_ACQUIRED,,,,,,NO_PDF_CANDIDATE

@@ -1,0 +1,16 @@
+Title,Conference,Year,Matched Title,IACR URLs,Status,Error
+SAVER: SNARK-Compatible Verifiable Encryption,FC,2024,SAVER: SNARK-Compatible Verifiable Encryption,,NO_IACR_LOCATION,
+E2Easy: a Simple Lattice-Based in-Person End-to-End Voting Scheme,FC,2025,E2Easy: a Simple Lattice-Based in-Person End-to-End Voting Scheme,,NO_IACR_LOCATION,
+Proofs for Inner Pairing Products and Applications,ASIACRYPT,2021,Proofs for Inner Pairing Products and Applications,,NO_IACR_LOCATION,
+RoK and Roll - Verifier-Efficient Random Projection for O~(λ)-Size Lattice Arguments - (Extended Abstract),ASIACRYPT,2025,,,NO_MATCH,
+Halo Infinite: Proof-Carrying Data from Additive Polynomial Commitments,CRYPTO,2021,,,ERROR,"('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+Accelerating the Delfs-Galbraith Algorithm with Fast Subfield Root Detection,CRYPTO,2022,Accelerating the Delfs–Galbraith Algorithm with Fast Subfield Root Detection,,NO_IACR_LOCATION,
+Brakedown: Linear-Time and Field-Agnostic SNARKs for R1CS,CRYPTO,2023,Brakedown: Linear-Time and Field-Agnostic SNARKs for R1CS,,NO_IACR_LOCATION,
+HERMES: Efficient Ring Packing Using MLWE Ciphertexts and Application to Transciphering,CRYPTO,2023,HERMES: Efficient Ring Packing Using MLWE Ciphertexts and Application to Transciphering,,NO_IACR_LOCATION,
+Orbweaver: Succinct Linear Functional Commitments from Lattices,CRYPTO,2023,Orbweaver: Succinct Linear Functional Commitments from Lattices,,NO_IACR_LOCATION,
+Greyhound: Fast Polynomial Commitments from Lattices,CRYPTO,2024,Greyhound: Fast Polynomial Commitments from Lattices,,NO_IACR_LOCATION,
+Polynomial Commitments for Galois Rings and Applications to SNARKs Over $\mathbb {Z}_{2^k}$,CRYPTO,2025,Polynomial Commitments for Galois Rings and Applications to SNARKs Over $$\mathbb {Z}_{2^k}$$,,NO_IACR_LOCATION,
+Faster Polynomial Evaluations for SIMD FHEs and Application to BGV in HElib,CRYPTO,2026,Faster Polynomial Evaluations for SIMD FHEs and Application to BGV in HElib,,NO_IACR_LOCATION,
+GAPP: Generic Aggregation of Polynomial IOPs,CRYPTO,2026,GAPP: Generic Aggregation of Polynomial IOPs,,NO_IACR_LOCATION,
+TensorSwitch: Nearly Optimal Polynomial Commitments from Tensor Codes,CRYPTO,2026,TensorSwitch: Nearly Optimal Polynomial Commitments from Tensor Codes,,NO_IACR_LOCATION,
+WHIR: Reed-Solomon Proximity Testing with Super-Fast Verification,EUROCRYPT,2025,WHIR: Reed–Solomon Proximity Testing with Super-Fast Verification,,NO_IACR_LOCATION,

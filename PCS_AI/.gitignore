@@ -1,0 +1,21 @@
+# Python environments
+.venv/
+.venv-gptoss/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# macOS
+.DS_Store
+
+# Research PDFs requiring redistribution review
+papers/pdfs/
+papers/ieee_manual/
+papers/acm_manual/

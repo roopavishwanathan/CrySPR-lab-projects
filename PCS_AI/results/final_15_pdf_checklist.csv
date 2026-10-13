@@ -1,0 +1,16 @@
+Conference,Year,Title,DOI,Publication Link
+ASIACRYPT,2021,Proofs for Inner Pairing Products and Applications,10.1007/978-3-030-92078-4_3,https://doi.org/10.1007/978-3-030-92078-4_3
+ASIACRYPT,2025,RoK and Roll - Verifier-Efficient Random Projection for O~(λ)-Size Lattice Arguments - (Extended Abstract),10.1007/978-981-95-5099-9_10,https://doi.org/10.1007/978-981-95-5099-9_10
+CRYPTO,2022,Accelerating the Delfs-Galbraith Algorithm with Fast Subfield Root Detection,10.1007/978-3-031-15982-4_10,https://doi.org/10.1007/978-3-031-15982-4_10
+CRYPTO,2023,Brakedown: Linear-Time and Field-Agnostic SNARKs for R1CS,10.1007/978-3-031-38545-2_7,https://doi.org/10.1007/978-3-031-38545-2_7
+CRYPTO,2023,HERMES: Efficient Ring Packing Using MLWE Ciphertexts and Application to Transciphering,10.1007/978-3-031-38551-3_2,https://doi.org/10.1007/978-3-031-38551-3_2
+CRYPTO,2023,Orbweaver: Succinct Linear Functional Commitments from Lattices,10.1007/978-3-031-38545-2_4,https://doi.org/10.1007/978-3-031-38545-2_4
+CRYPTO,2024,Greyhound: Fast Polynomial Commitments from Lattices,10.1007/978-3-031-68403-6_8,https://doi.org/10.1007/978-3-031-68403-6_8
+CRYPTO,2025,Polynomial Commitments for Galois Rings and Applications to SNARKs Over $\mathbb {Z}_{2^k}$,10.1007/978-3-032-01887-8_17,https://doi.org/10.1007/978-3-032-01887-8_17
+CRYPTO,2026,Faster Polynomial Evaluations for SIMD FHEs and Application to BGV in HElib,10.1007/978-3-032-35374-0_15,https://doi.org/10.1007/978-3-032-35374-0_15
+CRYPTO,2026,GAPP: Generic Aggregation of Polynomial IOPs,10.1007/978-3-032-35424-2_12,https://doi.org/10.1007/978-3-032-35424-2_12
+CRYPTO,2026,TensorSwitch: Nearly Optimal Polynomial Commitments from Tensor Codes,10.1007/978-3-032-35424-2_11,https://doi.org/10.1007/978-3-032-35424-2_11
+EUROCRYPT,2025,WHIR: Reed-Solomon Proximity Testing with Super-Fast Verification,10.1007/978-3-031-91134-7_8,https://doi.org/10.1007/978-3-031-91134-7_8
+FC,2024,SAVER: SNARK-Compatible Verifiable Encryption,10.1007/978-3-031-78679-2_11,https://doi.org/10.1007/978-3-031-78679-2_11
+FC,2025,E2Easy: a Simple Lattice-Based in-Person End-to-End Voting Scheme,10.1007/978-3-032-00495-6_16,https://doi.org/10.1007/978-3-032-00495-6_16
+NDSS,2026,ACTS: Attestations of Contents in TLS Sessions,10.14722/ndss.2026.241861,https://doi.org/10.14722/ndss.2026.241861

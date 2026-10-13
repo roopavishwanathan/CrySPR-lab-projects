@@ -1,0 +1,34 @@
+{
+  "paper_title": "UltraProofs: Scalable Reed-Solomon Code Commitment",
+  "source": "Abstract + Introduction + Contributions",
+  "contributions": [
+    {
+      "construction_name": "UltraProofs",
+      "authors_claim": "UltraProofs is the first RS code commitment scheme that is fully compatible with any multilinear polynomial commitment scheme, using evaluation consolidation to aggregate n evaluation proofs into a single randomized evaluation, eliminating redundant commitments and the need for homomorphic PCS.",
+      "evidence_quote": "We introduce UltraProofs, the first RS code commitment",
+      "classification": "NEW_RELATED_PRIMITIVE",
+      "pcs_family": "none",
+      "technical_interpretation": "The authors present a new RS code commitment framework that is independent of the underlying PCS. By aggregating multiple evaluation proofs into a single randomized evaluation, the scheme removes redundant commitments and eliminates the requirement for homomorphic PCS, achieving linear‑time proof generation while remaining compatible with any multilinear PCS.",
+      "evidence_verified": true,
+      "original_model_evidence_quote": "UltraProofs: a PCS-agnostic RS code commitment: We introduce UltraProofs, the first RS code commitment scheme that is fully compatible with any multilinear polynomial commitment scheme.",
+      "evidence_section": "1.1 Our Contributions",
+      "evidence_pdf_page": 2
+    },
+    {
+      "construction_name": "LightLigero",
+      "authors_claim": "The authors introduce LightLigero, a new Reed-Solomon-code-based multilinear polynomial commitment scheme combining code-based and group-based techniques.",
+      "evidence_quote": "We further design a tailored multilinear PCS, LightLigero,",
+      "classification": "NEW_PCS",
+      "pcs_family": "multilinear",
+      "technical_interpretation": "The authors design a new multilinear PCS that merges RS code based commitment with group‑based commitment, yielding improved prover time and proof size compared to earlier RS‑based PCS constructions. This constitutes a novel PCS construction.",
+      "evidence_verified": true,
+      "original_model_evidence_quote": "LightLigero: a new RS code–based multilinear PCS: We further design a tailored multilinear PCS, LightLigero, by combining RS code based PCS with group based PCS.",
+      "evidence_section": "1.1 Our Contributions",
+      "evidence_pdf_page": 2,
+      "original_model_authors_claim": "LightLigero is a new RS code–based multilinear PCS that combines RS code based PCS with group based PCS, achieving O(n log n)·F + O(n log n)·G prover time and O(λ log n) proof size, improving asymptotically over previous RS‑based PCS schemes such as Deepfold and WHIR.",
+      "prover_complexity": "O(n log n) * F + O(n) * H + O(n / log n) * G",
+      "proof_size": "O(lambda log n)",
+      "complexity_source": "Section 5, PDF page 8"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+1.1. Our Contributions
+
+We give an affirmative answer to the above question
+by presenting UltraProofs, a new framework for efficient
+and flexible RS code commitments without redundant com-
+mitment. UltraProofs achieves asymptotically optimal O(n)
+proof generation time. It can be integrated with any mul-
+tilinear polynomial commitment scheme, while removing
+the need for homomorphic polynomial commitments and
+substantially improving concrete communication efficiency.
+Our contributions are summarized below.
+• UltraProofs: a PCS-agnostic RS code commitment:
+We introduce UltraProofs, the first RS code commitment
+scheme that is fully compatible with any multilinear poly-
+nomial commitment scheme. At its core is a new tech-
+nique called evaluation consolidation, which aggregates
+n evaluation proofs across RS evaluation points into a
+single randomized evaluation. Unlike HydraProofs [24],
+
+1. Unlike FRI-based PCS [28], [29], FRIDA [16] can only work under
+unique decoding radius setting, resulting in more than λ samples to achieve
+λ-bit security [30].
+
+2503
+
+Authorized licensed use limited to: New Mexico State University. Downloaded on October 12,2026 at 21:12:49 UTC from IEEE Xplore.  Restrictions apply.
+
+UltraProofs only commits to the message, reducing redun-
+dant prover work of committing codeword. It also elim-
+inates the dependency on homomorphic commitments.
+This yields a strictly simpler and more modular construc-
+tion that can be instantiated with a variety of PCS designs.
+• LightLigero: a new RS code–based multilinear PCS:
+We further design a tailored multilinear PCS, LightLigero,
+by combining RS code based PCS with group based
+PCS. LightLigero achieves O(n log n) · F + O(
+n
+log n) · G
+prover time and O(λ log n) proof size, improving asymp-
+totically over previous RS-based PCS schemes such as
+Deepfold [28] and WHIR [29]. It serves as an efficient
+backend for UltraProofs but is also of independent interest
+for general proof systems.
+• Implementation and evaluation: We implemented Ul-
+traProofs and LightLigero in Rust using the Arkworks
+library [31] over BN254. Our code is open-sourced
+at https://github.com/guo-yanpei/ultraproofs. Across both
+VSS and DA benchmarks, UltraProofs demonstrates
+strong concrete efficiency: in VSS, it achieves a 2.4×
+faster prover and 4× smaller proofs than HydraProofs;
+in DA, the combination of UltraProofs and LightLigero
+reduces per-node communication by 2∼5× compared to
+FRIDA with comparable prover time. Our implementa-
+tion validates that UltraProofs is not only asymptotically
+optimal but also practical for deployment in large-scale
+distributed systems.

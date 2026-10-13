@@ -1,0 +1,18 @@
+Paper: DeepFold: Efficient Multilinear Polynomial Commitment from Reed-Solomon Code and Its Application to Zero-knowledge Proofs
+Source: DeepFold.pdf, PDF pages 2-4
+
+Classification: NEW_PCS  
+
+PCS Family: code-based  
+
+Evidence:  
+1. “DeepFold, a novel multilinear polynomial commitment scheme (PCS) based on Reed‑Solomon code that offers optimal prover time and a more concise proof size.” (PDF page 2)  
+2. “DeepFold: A multilinear PCS with optimal prover time and smaller proof size.” (PDF page 3)  
+
+Technical Contributions:  
+The authors present **DeepFold**, a brand‑new multilinear polynomial commitment scheme built on Reed‑Solomon codes. DeepFold achieves optimal prover time (O(n log n) commit, O(n) evaluation) while reducing proof size by leveraging list‑decoding to lower the query number from the unique‑decoding bound. Additionally, they introduce a batching evaluation technique that allows efficient commitment and evaluation of multilinear polynomials encoding arbitrary‑length inputs, eliminating padding overhead.  
+
+Reason:  
+The paper explicitly introduces a new PCS construction (DeepFold) rather than merely optimizing an existing scheme or applying a known PCS to a new application. The contributions are centered on the design, analysis, and implementation of this novel construction.  
+
+Confidence: High

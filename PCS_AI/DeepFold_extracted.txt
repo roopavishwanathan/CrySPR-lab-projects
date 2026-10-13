@@ -1,0 +1,88 @@
+DeepFold: Efficient Multilinear Polynomial Commitment from Reed-Solomon Code
+and Its Application to Zero-knowledge Proofs
+Yanpei Guo∗
+Xuanming Liu∗
+Kexi Huang∗
+Wenjie Qu∗
+Tianyang Tao∗
+Jiaheng Zhang∗
+Abstract
+This work presents DeepFold, a novel multilinear polynomial
+commitment scheme (PCS) based on Reed-Solomon code
+that offers optimal prover time and a more concise proof size.
+For the first time, DeepFold adapts the FRI-based multilin-
+ear PCS to the list decoding radius setting, requiring signif-
+icantly fewer query repetitions and thereby achieving a 3×
+reduction in proof size compared to BaseFold (Crypto’24),
+while preserving its advantages in prover time. Compared
+with PolyFRIM (USENIX Security’24), DeepFold achieves
+a 2× improvement in prover time, verifier time, and proof
+size. Another contribution of this work is a batch evalua-
+tion scheme, which enables the FRI-based multilinear PCS to
+handle polynomials whose size is not a power of two more
+efficiently.
+Our scheme has broad applications in zk-SNARKs, since
+PCS is a key component in modern zk-SNARK construc-
+tions. For example, when replacing the PCS component of
+Virgo (S&P’20) with DeepFold, our scheme achieves a 2.5×
+faster prover time when proving the knowledge of a Merkle
+tree with 256 leaves, while maintaining the similar proof size.
+When replacing the PCS component of HyperPlonk (Euro-
+crypt’23) with DeepFold, our scheme has about 3.6× faster
+prover time. Additionally, when applying our arbitrary length
+input commitment to verifiable matrix multiplications for ma-
+trices of size 1200 × 768 and 768 × 2304, which are actual
+use cases in GPT-2 model, the performance showcases a 2.4×
+reduction in prover time compared to previous approaches.
+1
+Introduction
+Polynomial Commitment Scheme (PCS) [5, 26] is a power-
+ful cryptographic primitive that allows a prover to commit
+to a µ-variate polynomial f defined over a field F with a de-
+gree bound of d using a short commitment. Given⃗x ∈Fµ, the
+prover can create a proof to convince the verifier that f(⃗x) = y
+for some y ∈F. PCS has broad applications like verifiable
+∗National University of Singapore.
+USENIX Association
+34th USENIX Security Symposium    3497
+
+
+secret sharing [39,50], proofs of retrievability [25], and data
+availability sampling [24,30]. A PCS is succinct if both the
+proof size and the verifier time are sublinear in the polyno-
+mial’s size n = (d +1)µ. Succinct PCS is an integral building
+block of zero-knowledge succinct non-interactive argument
+of knowledge (zk-SNARK) [18,20,21,40], which are particu-
+larly useful in various domains, including but not limited to
+cryptocurrencies [15,38], blockchain rollup [32,46], AI regu-
+lations [33,49], and anonymous credentials [37]. A succinct
+PCS can be integrated with a Polynomial Interactive Oracle
+Proof (PIOP) [9] to construct a zk-SNARK.
+The concept and initial construction of univariate PCS
+(namely, µ = 1) originated from the pioneering work by Kate,
+Zaverucha, and Goldberg [26] (hereafter, KZG). With the use
+of pairing groups, one major merit of KZG is its constant
+verifier time and proof size in the evaluation of a univariate
+polynomial. However, a long-standing issue that has been
+widely criticized with KZG is its reliance on a trusted setup to
+generate certain parameters, which often raises security con-
+cerns. Another disadvantage of KZG is the high computational
+overhead of the pairing group operations for the prover. There-
+fore, there have been numerous studies [5,22,47] focusing on
+creating PCS based on error-correcting codes (ECC), which
+is transparent and only relies on lightweight hash functions.
+Among these schemes, the Fast Reed-Solomon Interactive Or-
+acle Proof of Proximity (FRI) [5] is a compelling construction
+for univariate PCS based on Reed-Solomon (RS) codes. FRI
+is praised for its efficient prover without relying on pairing
+group operations, as well as its transparent setup. The verifier
+time and the proof size are poly-logarithmic with respect to
+the polynomial size. Consequently, it has become an appeal-
+ing univariate PCS choice for practical applications [6,8,23].
+FRI-based Multilinear PCS. In recent years, multivari-
+ate polynomials (µ > 1), especially multilinear polynomials
+where the degree in each variable is at most one, have been
+widely applied in constructing efficient SNARKs [18,21,40].
+Given its transparency and efficiency, an interesting topic is
+to use the technique of FRI to construct a PCS for multivari-
+ate polynomials, especially multilinear polynomials. How-

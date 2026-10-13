@@ -1,0 +1,300 @@
+
+========== PDF PAGE 2 ==========
+DeepFold: Efficient Multilinear Polynomial Commitment from Reed-Solomon Code
+and Its Application to Zero-knowledge Proofs
+Yanpei Guo∗
+Xuanming Liu∗
+Kexi Huang∗
+Wenjie Qu∗
+Tianyang Tao∗
+Jiaheng Zhang∗
+Abstract
+This work presents DeepFold, a novel multilinear polynomial
+commitment scheme (PCS) based on Reed-Solomon code
+that offers optimal prover time and a more concise proof size.
+For the first time, DeepFold adapts the FRI-based multilinear PCS to the list decoding radius setting, requiring significantly fewer query repetitions and thereby achieving a 3×
+reduction in proof size compared to BaseFold (Crypto’24),
+while preserving its advantages in prover time. Compared
+with PolyFRIM (USENIX Security’24), DeepFold achieves
+a 2× improvement in prover time, verifier time, and proof
+size. Another contribution of this work is a batch evaluation scheme, which enables the FRI-based multilinear PCS to
+handle polynomials whose size is not a power of two more
+efficiently.
+Our scheme has broad applications in zk-SNARKs, since
+PCS is a key component in modern zk-SNARK constructions. For example, when replacing the PCS component of
+Virgo (S&P’20) with DeepFold, our scheme achieves a 2.5×
+faster prover time when proving the knowledge of a Merkle
+tree with 256 leaves, while maintaining the similar proof size.
+When replacing the PCS component of HyperPlonk (Eurocrypt’23) with DeepFold, our scheme has about 3.6× faster
+prover time. Additionally, when applying our arbitrary length
+input commitment to verifiable matrix multiplications for matrices of size 1200 × 768 and 768 × 2304, which are actual
+use cases in GPT-2 model, the performance showcases a 2.4×
+reduction in prover time compared to previous approaches.
+1
+Introduction
+Polynomial Commitment Scheme (PCS) [5, 26] is a powerful cryptographic primitive that allows a prover to commit
+to a µ-variate polynomial f defined over a field F with a degree bound of d using a short commitment. Given⃗x ∈Fµ, the
+prover can create a proof to convince the verifier that f(⃗x) = y
+for some y ∈F. PCS has broad applications like verifiable
+∗National University of Singapore.
+USENIX Association
+34th USENIX Security Symposium    3497
+
+secret sharing [39,50], proofs of retrievability [25], and data
+availability sampling [24,30]. A PCS is succinct if both the
+proof size and the verifier time are sublinear in the polynomial’s size n = (d +1)µ. Succinct PCS is an integral building
+block of zero-knowledge succinct non-interactive argument
+of knowledge (zk-SNARK) [18,20,21,40], which are particularly useful in various domains, including but not limited to
+cryptocurrencies [15,38], blockchain rollup [32,46], AI regulations [33,49], and anonymous credentials [37]. A succinct
+PCS can be integrated with a Polynomial Interactive Oracle
+Proof (PIOP) [9] to construct a zk-SNARK.
+The concept and initial construction of univariate PCS
+(namely, µ = 1) originated from the pioneering work by Kate,
+Zaverucha, and Goldberg [26] (hereafter, KZG). With the use
+of pairing groups, one major merit of KZG is its constant
+verifier time and proof size in the evaluation of a univariate
+polynomial. However, a long-standing issue that has been
+widely criticized with KZG is its reliance on a trusted setup to
+generate certain parameters, which often raises security concerns. Another disadvantage of KZG is the high computational
+overhead of the pairing group operations for the prover. Therefore, there have been numerous studies [5,22,47] focusing on
+creating PCS based on error-correcting codes (ECC), which
+is transparent and only relies on lightweight hash functions.
+Among these schemes, the Fast Reed-Solomon Interactive Oracle Proof of Proximity (FRI) [5] is a compelling construction
+for univariate PCS based on Reed-Solomon (RS) codes. FRI
+is praised for its efficient prover without relying on pairing
+group operations, as well as its transparent setup. The verifier
+time and the proof size are poly-logarithmic with respect to
+the polynomial size. Consequently, it has become an appealing univariate PCS choice for practical applications [6,8,23].
+FRI-based Multilinear PCS. In recent years, multivariate polynomials (µ > 1), especially multilinear polynomials
+where the degree in each variable is at most one, have been
+widely applied in constructing efficient SNARKs [18,21,40].
+Given its transparency and efficiency, an interesting topic is
+to use the technique of FRI to construct a PCS for multivariate polynomials, especially multilinear polynomials. How-
+
+
+========== PDF PAGE 3 ==========
+ever, adapting the (univariate) FRI for multivariate polynomials is non-trivial, because RS codes are originally designed
+for the univariate one. Several works, such as Virgo [51],
+PolyFRIM [52], and BaseFold [48], have aimed to achieve
+this transition. Nonetheless, these schemes always result in
+a significant increase in prover time or proof size when compared to the univariate FRI protocol, which is not optimal.
+Therefore, it remains an open question to achieve a multilinear PCS based on FRI with optimal prover time and compact
+proof size.
+FRI query number. When constructing PCS based on FRI
+techniques, an important metric is the query number, which determines the final proof size. FRI considers the setting where a
+verifier is given only oracle access to a vector⃗v. With the help
+of an untrusted prover, the verifier needs to distinguish, by
+querying⃗v at a few locations repeatedly, whether⃗v is a valid
+RS codeword or whether⃗v is far from all codewords in relative
+Hamming distance. This is called a RS code interactive oracle
+proof of proximity (IOPP) [9]. In the original univariate FRI,
+the query number is restricted by a limitation known as the
+unique decoding radius. Several works [10,12,27] have managed to overcome this limitation and reduce the query number.
+For example, for an RS code with a code rate of 1
+8, under the
+unique decoding radius setting, to achieve 100-bit security,
+the query number exceeds 120, whereas in DEEP-FRI [10],
+the number is reduced to only 34, resulting in approximately
+3× smaller concrete proof size for FRI-based univariate PCS.
+Recently, BaseFold [48] discovered a special property of
+FRI and invoked FRI for a purpose other than RS code IOPP,
+achieving multilinear PCS with competitive prover time. Its
+remarkable prover efficiency has made it appealing to numerous industrial projects [19,41]. However, this unconventional
+usage of FRI renders previous optimizations for lowering the
+query number of RS IOPP invalid. Consequently, the query
+number in BaseFold has reverted to the same level as in the
+original univariate FRI, resulting in a significant increase in
+proof size. Concretely, when instantiating BaseFold for a multilinear polynomial with µ = 22 variables, the proof size is
+619 KB, whereas the proof size for DEEP-FRI is only about
+200 KB for a univariate polynomial degree with 222. Therefore, it is of significant importance to reduce the proof size of
+BaseFold while maintaining its prover efficiency.
+Arbitrary length input. Another significant drawback of FRIbased PCS is the overhead when encoding inputs of arbitrary
+length. For instance, when applying a PCS to encode a vector
+with 2k +2k/2 inputs for some k ≥1, we need to pad the vector to size 2k+1 to fit a (k +1)-variate multilinear polynomial.
+If one chooses to commit to the polynomial using a multilinear variant of KZG (mKZG), the overhead from padding is
+negligible, as it can skip those zero terms directly. However,
+when using FRI-based PCS, the RS encoding causes the entire
+2k+1-sized vector to become non-zero, thereby resulting in
+nearly double the prover time. This situation is less studied in
+3498    34th USENIX Security Symposium
+USENIX Association
+
+the literature, but we find it common in real-world scenarios,
+which often involve inputs of random sizes.
+The above issue becomes even more significant for verifiable matrix multiplications [43], because committing to a
+matrix requires padding in two dimensions, potentially leading to up to 4× overhead. We find this problem very common
+in zero-knowledge machine learning (zkML) [42], which aims
+to make ML inference verifiable. For example, in GPT-2 [36],
+the attention matrix is of size 768 × 2304. When handling
+verifiable matrix multiplication with such matrices, there is
+always a need for an efficient PCS to commit to and evaluate
+a multilinear polynomial encoded from these "arbitrary" matrices. Therefore, these challenges motivate us to develop a
+new technique to efficiently handle inputs of arbitrary length.
+In summary, we propose two open research questions for
+improving FRI-based multilinear polynomial commitments:
+1. Can we build a FRI-based multilinear PCS with optimal
+efficiency, and push the proof size boundary even lower compared to the state-of-the-art [48]?
+2. Can we develop an efficient technique to commit arbitrarysize inputs using FRI without any overhead?
+1.1
+Contributions
+We give affirmative answers to the above questions. Our contributions can be summarized as follows:
+• DeepFold: A multilinear PCS with optimal prover time
+and smaller proof size. Our main contribution is DeepFold,
+an innovative multilinear PCS with O(nlogn) commit time
+and O(n) evaluating time, where n is the size of the polynomial. The verifier time and the proof size are both O(sL ·
+log2 n), where sL is the query number under the list decoding
+setting, overcoming unique decoding limitation. Concretely,
+when the code rate is set to 1
+8, the query number sL is about
+34, while the query number in prior work BaseFold [48], sU,
+exceeds 100 due to the unique decoding limitation. This translates to more than 3× optimization in proof size. Using FS
+transformation, DeepFold can be made non-interactive [13].
+• Efficient evaluation for PCS encoding arbitrary length
+inputs from batching FRI. For the first time in the literature,
+we study the problem of committing to multilinear polynomials encoding inputs of arbitrary length based on the FRI
+technique. Instead of padding and committing the inputs as
+a whole vector, we divide the inputs into several parts and
+commit them using multiple multilinear polynomials with different numbers of variables. To ensure that this transformation
+does not significantly increase the overhead of the evaluation,
+a novel batching evaluation technique is developed, enabling
+evaluations for different polynomials with varying sizes at one
+time. This batching technique is also leveraged to non-trivially
+make DeepFold zero-knowledge.
+
+
+========== PDF PAGE 4 ==========
+Table 1: Complexities comparison of µ-variate multilinear polynomial commitments to achieve λ-bit security.
+Scheme
+Transp.
+Assumption
+Commit
+Evaluate
+Verify
+Proof Size
+mKZG [35]
+no
+q-SDH
+O(n)GB
+O(n)GB
+O(logn)GB
+O(logn)
+DARK [17]
+yes/no
+Strong RSA
+O(n)GU
+O(nlogn)GU
+O(logn)GU
+O(logn)
+Bulletproofs [16]
+yes
+DLog
+O(n)GP
+O(n)GP
+O(n)GP
+O(logn)
+Hyrax [44]
+yes
+DLog
+O(n)GP
+O(n)F+O(√n)GP
+O(√n)GP
+O(√n)
+Brakedown [22]
+yes
+O(n)H
+O(n)F
+O(√n)H
+O(λ√n)
+Orion [47]
+yes
+O(n)H
+O(n)F
+O(sO log2 n)F
+O(sO log2 n), 3789KB
+Virgo [51]
+yes
+O(nlogn)F+O(n)H
+O(nlogn)F+O(n)H
+O(sL log2 n)H
+O(sL log2 n), 320KB
+PolyFRIM [52]
+yes
+O(nlogn)F+O(n)H
+O(n)H
+O(sL log2 n)H
+O(sL log2 n), 570KB
+Basefold [48]
+yes
+O(nlogn)F+O(n)H
+O(n)H
+O(sU log2 n)H
+O(sU log2 n), 929KB
+DeepFold
+yes
+O(nlogn)F+O(n)H
+O(n)H
+O(sL log2 n)H
+O(sL log2 n), 304KB
+For Gi, where i ∈{B,U,P}, it denotes a group with a Bilinear map, of Unknown order, or of known Prime order;
+For si, where i ∈{O,L,U}, it denotes the query number needed for Orion, List decoding, or Unique decoding setting to
+guarantee security;
+F is a field with a large multiplicative coset. H denotes a hash function. n = 2µ denotes the polynomial size;
+The PCS listed without assumptions relies solely on random oracle (RO) [28], which is plausibly post-quantum secure.
+• Implementation, applications and evaluations. We have
+fully implemented our schemes and applied them to two practical cases: (i) constructing general zk-SNARKs [18,45], and
+(ii) verifiable matrix multiplications [43]. We collected experimental data and demonstrated the competitive performance
+of our designs. Compared to Virgo [51], DeepFold achieves
+more than 3× faster prover time for a 26-variate multilinear
+polynomial. When compared to PolyFRIM [52], our proposal
+exhibits a 2× improvement in prover time, proof size, and verifier time. Furthermore, DeepFold outperforms BaseFold [48]
+by 3× in terms of proof size and verifier time, while maintaining similar prover time. When combining DeepFold with the
+HyperPlonk PIOP [18], the proof system is 3.6× faster than
+HyperPlonk + mKZG [35]. When integrated with Libra [45],
+the result is 2.5× faster than Libra + Virgo. Finally, we utilized
+our arbitrary-length input commitment to assist with verifiable matrix multiplication with dimensions 768 × 2304, an
+actual use case in GPT-2 [36]. Experiments showcase a 2.4×
+improvement in prover time compared to naive approaches.
+1.2
+Related Work
+Multilinear PCS. In Table 1, we summarize the properties
+of related schemes for a comparison. Additionally, we list
+the concrete proof sizes for all schemes with a complexity of
+O(slog2 n), where µ = 26 and s is chosen differently by each
+scheme to ensure soundness. For all schemes based on RS
+code, we set the code rate to 1
+8, the same as the default setting
+in Plonky2 [2].
+The (univariate) KZG scheme can be adapted to the multilinear case [35] with logarithmic verifier time and proof size.
+However, mKZG also inherits the issues of trusted setup and
+expensive group operations. Bulletproofs [16] does not reUSENIX Association
+34th USENIX Security Symposium    3499
+
+quire a trusted setup and relies solely on the Discrete Log
+(DLog) assumption. The problem is that verification takes
+O(n) group exponentiations, making it often impractical for
+real-world applications. Hyrax [44] generalizes Bulletproofs
+by trading off proof size to improve verifier time, but an intrinsic limitation [31] is that the complexity product of the
+proof size and the verifier time cannot be smaller than O(n).
+DARK [17] achieves logarithmic proof size and verifier time
+but relies on strong RSA and adaptive root assumptions. It is
+transparent only if class groups are used, which are known
+for slower group operations.
+From another path, PCS based on error-correcting codes
+(ECC) relies solely on lightweight hash functions and is therefore transparent. Another advantage is that they avoid expensive group operations. There are two families of ECC-based
+PCS known for efficient prover performance and acceptable
+verifier time and proof size: (i) FRI-based schemes and (ii)
+tensor code-based schemes. The latter family of constructions
+is derived from the concepts introduced in Ligero [3] and has
+been recently enhanced in Brakedown [22] and Orion [47].
+Without relying on proof recursion, Brakedown [22] achieves
+linear-time prover but suffers from a relatively slow verifier
+and a large proof size of O(λ√n), where λ is security parameter. On the other hand, Orion [47] reduces the proof size
+to O(sO log2 n) through proof composition with Virgo, where
+sO represents the query number. However, sO exceeds 1500,
+resulting in a large concrete proof size. In contrast, DeepFold
+and other FRI-based multilinear PCS [48,51,52] also yield a
+poly-logarithmic proof size and verifier time, but the concrete
+proof size is much smaller, as elaborated below.
+FRI-based PCS. FRI-based PCS is originally designed for
+univariate polynomials [5]. The correctness relies on the fact
+that if f(z) = y for a univariate polynomial f(x) of degree n,

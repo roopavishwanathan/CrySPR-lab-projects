@@ -1,0 +1,70 @@
+<|channel|>analysis<|message|>We need to parse contributions. The contributions list includes:
+
+- UltraProofs: a PCS-agnostic RS code commitment. Claims: first RS code commitment scheme fully compatible with any multilinear polynomial commitment scheme; uses evaluation consolidation; eliminates redundant commitments; removes need for homomorphic commitments; modular; can instantiate with variety of PCS designs.
+
+- LightLigero: a new RS code–based multilinear PCS. Claims: tailored multilinear PCS combining RS code based PCS with group based PCS; achieves O(n log n)·F + O(n log n)·G prover time and O(λ log n) proof size; improves asymptotically over previous RS-based PCS schemes such as Deepfold and WHIR; serves as efficient backend for UltraProofs but also of independent interest.
+
+- Implementation and evaluation: not a technical contribution but demonstration.
+
+We need to identify distinct technical contributions separately. So we have two contributions: UltraProofs and LightLigero. Implementation is not a PCS contribution.
+
+We need for each:
+
+1. construction_name: UltraProofs, LightLigero.
+
+2. authors_claim: what authors explicitly claim.
+
+3. evidence_quote: exact substring from contributions text.
+
+4. classification: categories.
+
+- UltraProofs: new PCS-agnostic RS code commitment. It's a new construction that allows committing to a polynomial and proving evaluations? It's a new polynomial commitment scheme? Actually it's a new RS code commitment framework that is PCS-agnostic. It's a new construction of RS code commitment, not a PCS itself. But classification: NEW_PCS? The categories: NEW_PCS: new polynomial commitment construction that allows committing to a polynomial and proving evaluations. But UltraProofs is a RS code commitment framework, not a PCS. But it's a new construction of RS code commitment, which is a related primitive. The categories: NEW_RELATED_PRIMITIVE: new related primitive, such as an RS code commitment, vector commitment, or specialized commitment mechanism. So UltraProofs is a new RS code commitment scheme. So classification: NEW_RELATED_PRIMITIVE.
+
+- LightLigero: a new RS code–based multilinear PCS. This is a new PCS. So classification: NEW_PCS.
+
+5. Identify the PCS family, where applicable. For UltraProofs: it's a RS code commitment, not a PCS family. But it's PCS-agnostic, so no specific family. For LightLigero: it's a multilinear PCS, RS code based. So family: code-based? It's a multilinear PCS. So we can say "multilinear" or "code-based". The categories mention "code-based" as a family. So we can say "code-based" or "multilinear". The instruction: "Identify the PCS family, where applicable." So for LightLigero: "multilinear" or "code-based". For UltraProofs: maybe "none" or "RS code commitment". We can set pcs_family: "RS code commitment" or "none". But we should not fabricate. The PCS family is "multilinear" for LightLigero. For UltraProofs, it's not a PCS, so maybe null or "none".
+
+6. technical_interpretation: reasoning separate from authors' claims. For UltraProofs: it's a new RS code commitment framework that uses evaluation consolidation to reduce n proofs to one randomized evaluation, eliminating redundant commitments and homomorphic requirement. So it's a new related primitive. For LightLigero: it's a new multilinear PCS that combines RS code based PCS with group based PCS, achieving improved prover time and proof size. So it's a new PCS.
+
+We need to provide JSON with paper_title, source, contributions array.
+
+Paper title: "UltraProofs: Scalable Reed-Solomon Code Commitment" (given in example). But actual title? The abstract says "UltraProofs, a new RS code commitment framework". The paper title likely "UltraProofs: Scalable Reed-Solomon Code Commitment". We'll use that.
+
+Source: "Abstract + Introduction + Contributions".
+
+Now contributions array with two objects.
+
+We need evidence_quote: exact substring from contributions text. For UltraProofs: maybe "UltraProofs: a PCS-agnostic RS code commitment: We introduce UltraProofs, the first RS code commitment scheme that is fully compatible with any multilinear polynomial commitment scheme. At its core is a new technique called evaluation consolidation, which aggregates n evaluation proofs across RS evaluation points into a single randomized evaluation." That is a long quote. We need a short contiguous quotation. We can pick: "UltraProofs: a PCS-agnostic RS code commitment: We introduce UltraProofs, the first RS code commitment scheme that is fully compatible with any multilinear polynomial commitment scheme." That is a contiguous substring. For LightLigero: "LightLigero: a new RS code–based multilinear PCS: We further design a tailored multilinear PCS, LightLigero, by combining RS code based PCS with group based PCS." That is a contiguous substring.
+
+Now classification: UltraProofs: NEW_RELATED_PRIMITIVE. LightLigero: NEW_PCS.
+
+pcs_family: UltraProofs: maybe "none" or "RS code commitment". But we can set "none" or "RS code commitment". The categories mention "code-based" as a family. But LightLigero is code-based. So pcs_family: "code-based" or "multilinear". The instruction: "Identify the PCS family, where applicable." So for LightLigero: "multilinear" or "code-based". I'd say "multilinear" because it's a multilinear PCS. But also code-based. We can choose "multilinear". For UltraProofs: maybe "none" or "RS code commitment". I'd set "none" or "RS code commitment". But maybe better to set "RS code commitment" to indicate it's a related primitive. But the classification is NEW_RELATED_PRIMITIVE, so pcs_family might be "RS code commitment". But the categories mention "code-based" as a family. So we can set "code-based" for LightLigero. For UltraProofs: "none" or "RS code commitment". I'll set "none" to avoid confusion.
+
+Now technical_interpretation: For UltraProofs: "The authors propose a new RS code commitment framework that is independent of the underlying PCS. By aggregating multiple evaluation proofs into a single randomized evaluation, the scheme eliminates redundant commitments and removes the need for homomorphic PCS, thereby achieving linear-time proof generation while remaining compatible with any multilinear PCS." For LightLigero: "The authors design a new multilinear PCS that combines RS code based commitment with group-based commitment, achieving improved prover time and proof size over prior RS-based PCS such as Deepfold and WHIR. This constitutes a new PCS construction."
+
+We need to ensure no LaTeX backslashes. Avoid backslashes. Use plain text.
+
+Return JSON.
+
+Let's craft JSON.<|end|><|start|>assistant<|channel|>final<|message|>{
+  "paper_title": "UltraProofs: Scalable Reed-Solomon Code Commitment",
+  "source": "Abstract + Introduction + Contributions",
+  "contributions": [
+    {
+      "construction_name": "UltraProofs",
+      "authors_claim": "UltraProofs is the first RS code commitment scheme that is fully compatible with any multilinear polynomial commitment scheme, using evaluation consolidation to aggregate n evaluation proofs into a single randomized evaluation, eliminating redundant commitments and the need for homomorphic PCS.",
+      "evidence_quote": "UltraProofs: a PCS-agnostic RS code commitment: We introduce UltraProofs, the first RS code commitment scheme that is fully compatible with any multilinear polynomial commitment scheme.",
+      "classification": "NEW_RELATED_PRIMITIVE",
+      "pcs_family": "none",
+      "technical_interpretation": "The authors present a new RS code commitment framework that is independent of the underlying PCS. By aggregating multiple evaluation proofs into a single randomized evaluation, the scheme removes redundant commitments and eliminates the requirement for homomorphic PCS, achieving linear‑time proof generation while remaining compatible with any multilinear PCS."
+    },
+    {
+      "construction_name": "LightLigero",
+      "authors_claim": "LightLigero is a new RS code–based multilinear PCS that combines RS code based PCS with group based PCS, achieving O(n log n)·F + O(n log n)·G prover time and O(λ log n) proof size, improving asymptotically over previous RS‑based PCS schemes such as Deepfold and WHIR.",
+      "evidence_quote": "LightLigero: a new RS code–based multilinear PCS: We further design a tailored multilinear PCS, LightLigero, by combining RS code based PCS with group based PCS.",
+      "classification": "NEW_PCS",
+      "pcs_family": "multilinear",
+      "technical_interpretation": "The authors design a new multilinear PCS that merges RS code based commitment with group‑based commitment, yielding improved prover time and proof size compared to earlier RS‑based PCS constructions. This constitutes a novel PCS construction."
+    }
+  ]
+}
