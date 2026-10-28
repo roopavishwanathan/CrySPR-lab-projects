@@ -1,0 +1,24 @@
+{	
+	"python_script": "main_server.py",
+
+	"test_mode": false,
+	"verbose": 2,
+	"mode": "multiprog",
+	"multiprog_batch_size": 10,
+
+	"argument_grid":
+		{"k"          : [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 
+                                       2048, 4096, 8192, 16384, 32768, 65536, 131072, 
+                                       262144, 524288, 1048576],
+                    "n"   : [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
+                    "i" : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                 },
+
+        "sbatch_args":
+                {
+                    "minutes": 300,
+                    "n_gpus" : 0,
+                    "cores"  : 1
+                }
+}
+
