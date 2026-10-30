@@ -1,4 +1,5 @@
 # PEPPER paper collection
+This is the implementation for  "E. Sariboz, R. Tourani, R. Vishwanathan and S. Misra. PEPPER: Privacy-prEserving, auditable, and fair Payment based resource discovery at the PERvasive edge. In ACM AsiaCCS 2024."
 
 Copied from Desktop projects on 2026-10-30. Original files were not modified.
 
