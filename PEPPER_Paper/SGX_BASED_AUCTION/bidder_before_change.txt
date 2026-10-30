@@ -1,0 +1,239 @@
+// package main
+
+// import (
+// 	"bytes"
+// 	"context"
+// 	"crypto/sha256"
+// 	"crypto/tls"
+// 	"crypto/x509"
+// 	"encoding/hex"
+// 	"fmt"
+// 	"io/ioutil"
+// 	"math/big"
+// 	rnd "math/rand"
+// 	"net/http"
+// 	"os"
+// 	"strconv"
+// 	"time"
+
+// 	"crypto/rand"
+
+// 	ecies "github.com/ecies/go/v2"
+// 	"github.com/edgelesssys/ego/eclient"
+// 	solidity_wrapper "github.com/emrahsariboz/PEC/pkg/solidity_wrapper"
+// 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+// 	"github.com/ethereum/go-ethereum/common"
+// 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
+// )
+
+// func randint64() (int64, error) {
+// 	val, err := rand.Int(rand.Reader, big.NewInt(int64(1000000)))
+// 	if err != nil {
+// 		return 0, err
+// 	}
+// 	return val.Int64(), nil
+// }
+
+// func checkIfError(e error) {
+// 	if e != nil {
+// 		panic(e)
+// 	}
+// }
+
+// func httpGet(url string) []byte {
+
+// 	tlsConfig := &tls.Config{InsecureSkipVerify: true}
+// 	client := http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+// 	resp, err := client.Get(url)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer resp.Body.Close()
+// 	if resp.StatusCode != http.StatusOK {
+// 		panic(resp.Status)
+// 	}
+// 	body, err := ioutil.ReadAll(resp.Body)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	return body
+// }
+
+// func httpGetPK(tlsConfig *tls.Config, url string) *ecies.PublicKey {
+// 	fmt.Println("Getting enclave pk...")
+// 	client := http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+
+// 	resp, err := client.Get(url)
+
+// 	if err != nil {
+// 		panic(err)
+// 	}
+
+// 	defer resp.Body.Close()
+
+// 	body, err := ioutil.ReadAll(resp.Body)
+// 	checkIfError(err)
+
+// 	pk, err := ecies.NewPublicKeyFromBytes(body)
+// 	checkIfError(err)
+
+// 	return pk
+// }
+
+// func main() {
+
+// 	// Create connection
+// 	client := solidity_wrapper.CreateConnection()
+
+// 	// Initialize Contracts
+// 	auction_identifier, auction_contract, bidders_contract := solidity_wrapper.ReturnAuctionDetails()
+
+// 	// Read private key of bidder.
+// 	// I am bidder1
+// 	val, ok := os.LookupEnv("bidder_1")
+
+// 	if !ok {
+// 		fmt.Println("Cant read the private key. Export PRIVATE_KEY!")
+// 	}
+
+// 	privateKey, _, ethereum_address := solidity_wrapper.PrivateKeyToOthers(val)
+// 	fromAddress := ethcrypto.PubkeyToAddress(*ethereum_address)
+
+// 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
+
+// 	checkIfError(err)
+// 	chainID, err := client.NetworkID(context.Background())
+// 	checkIfError(err)
+
+// 	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, chainID)
+// 	checkIfError(err)
+
+// 	auth.Nonce = big.NewInt(int64(nonce))
+// 	auth.Value = big.NewInt(10000000000000000) // in wei
+// 	auth.GasLimit = uint64(300000)
+// 	auth.GasPrice = big.NewInt(8000000007)
+
+// 	auction_identifier = common.HexToAddress("0x6A1C312D91408Bd62680926E6853C8E2315bC04d")
+
+// 	n, err := randint64()
+// 	fmt.Println("Generating random nonce. dMy random nonce is: ", n)
+// 	tx, _ := bidders_contract.RegisterBidder(auth, auction_identifier, big.NewInt(n))
+
+// 	fmt.Printf("Register tx sent: %s\n", tx.Hash().Hex())
+// 	fmt.Println("Waiting the Register TX (and nonce) to get confirmed.....")
+
+// 	for {
+// 		receipt, err := client.TransactionReceipt(context.Background(), tx.Hash())
+// 		if err == nil && receipt.Status == 1 {
+// 			// Transaction was successfully mined
+// 			break
+// 		}
+// 		time.Sleep(time.Second)
+// 	}
+
+// 	auction_nonce, err := auction_contract.Auctions(&bind.CallOpts{}, auction_identifier)
+// 	checkIfError(err)
+// 	fmt.Println("The current auction nonce is: ", auction_nonce.AuctionNonce)
+
+// 	// Trigger manager to start enclave.
+// 	byte_nonce := []byte(new(big.Int).SetInt64(auction_nonce.AuctionNonce.Int64()).String())
+
+// 	server_url := "https://20.234.100.177:8045/"
+
+// 	fmt.Println("Sent request to Manager to init enclave!")
+
+// 	go httpGet(server_url + "initEnclave")
+
+// 	fmt.Println("Waiting for the enclave!")
+// 	time.Sleep(10 * time.Second)
+
+// 	tlsConfig := &tls.Config{InsecureSkipVerify: true}
+
+// 	enclave_url := "https://20.234.100.177:3550"
+// 	certBytes := httpGet(enclave_url + "/cert")
+// 	reportBytes := httpGet(enclave_url + "/report")
+
+// 	// Retrive Public Key of Enclave!
+// 	pk := httpGetPK(tlsConfig, enclave_url+"/pk")
+
+// 	cert, _ := x509.ParseCertificate(certBytes)
+// 	tlsConfig = &tls.Config{RootCAs: x509.NewCertPool(), ServerName: "localhost"}
+// 	tlsConfig.RootCAs.AddCert(cert)
+
+// 	// Verify Report
+// 	fmt.Println("Verifying the report...")
+// 	report, err := eclient.VerifyRemoteReport(reportBytes)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	fmt.Println("The report is verified...")
+
+// 	// nonce --> Expected nonce
+// 	hash := sha256.Sum256(append(certBytes, byte_nonce...))
+
+// 	fmt.Println("Verifying the encalve identiy...")
+// 	// if !bytes.Equal(report.SignerID, signer) {
+// 	// 	fmt.Println("Identy doesnt' match!")
+// 	// }
+// 	fmt.Println("The identy matched...")
+
+// 	fmt.Println("Checking if hash in report matches")
+// 	if !bytes.Equal(report.Data[:len(hash)], hash[:]) {
+// 		fmt.Print("report data does not match the certificate's hash")
+// 	} else {
+// 		fmt.Println("The report data match the certificate's hash")
+// 		fmt.Println("Remote Attestation is Successfull!!!")
+// 	}
+
+// 	min := 1000000000
+// 	max := 1000000000000
+
+// 	bid := rnd.Intn(max-min) + min
+
+// 	encryptedBid, _ := ecies.Encrypt(pk, []byte(strconv.Itoa(bid)))
+
+// 	encodedString := hex.EncodeToString(encryptedBid)
+
+// 	fmt.Println("ENRYPTED + ENCODED BID", encodedString)
+
+// 	nonce, _ = client.PendingNonceAt(context.Background(), fromAddress)
+// 	checkIfError(err)
+
+// 	auth.Nonce = big.NewInt(int64(nonce))
+// 	auth.Value = big.NewInt(0) // in wei
+// 	auth.GasLimit = uint64(900000)
+// 	auth.GasPrice = big.NewInt(8000000007)
+
+// 	// Send ecrypted bid to smart contract.
+// 	tx3, err := bidders_contract.SendBid(auth, auction_identifier, encodedString)
+
+// 	fmt.Printf("Register tx sent: %s\n", tx3.Hash().Hex())
+// 	fmt.Println("Waiting the sendBid TX to get confirmed.....")
+
+// 	for {
+// 		receipt, err := client.TransactionReceipt(context.Background(), tx3.Hash())
+// 		if err == nil && receipt.Status == 1 {
+// 			// Transaction was successfully mined
+// 			break
+// 		}
+// 		time.Sleep(time.Second)
+// 	}
+
+// 	fmt.Println("RANDOM BID IN PLAINTEXT IS: ", bid)
+// 	fmt.Printf("Sending encrypted bid...: %s\n", tx3.Hash().Hex())
+
+// 	checkIfError(err)
+// 	time.Sleep(20 * time.Second)
+
+// 	fmt.Println("Auction is over. Waiting for the manager to declare winner.")
+
+// 	a := httpGet(server_url + "/findWinner")
+
+// 	fmt.Println(a)
+
+// 	fmt.Println("Asked manager to find winner. ")
+
+// }
+
+//// *********************** CRASH SERVER ************** ////////
+

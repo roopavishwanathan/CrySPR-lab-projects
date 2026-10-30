@@ -1,0 +1,10 @@
+dotenv: .env
+wallets:
+  from_key: ${PRIVATE_KEY}
+
+"networks": {
+    "rinkeby": {
+        "host": "http://ropsten.infura.io/v3/$WEB3_INFURA_PROJECT_ID"
+    }
+}
+

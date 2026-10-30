@@ -1,0 +1,530 @@
+[
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/.gitignore",
+    "copy": "SGX_BASED_AUCTION/.gitignore",
+    "bytes": 43,
+    "sha256": "2157aebcfc2014636b84c184b942607dce505a12360ea06f441b3cc72955eb93"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/README.md",
+    "copy": "SGX_BASED_AUCTION/README.md",
+    "bytes": 20,
+    "sha256": "28bbdf5e8da38ba96e594edf72c4c1161298f800368fb8c76668c7c192976d66"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/bidder_before_change.txt",
+    "copy": "SGX_BASED_AUCTION/bidder_before_change.txt",
+    "bytes": 6692,
+    "sha256": "067e52791d64babc2973c250929514f8c5f8defced67f16397a6e4ca2dad9b16"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/call_manager_decrypt.sh",
+    "copy": "SGX_BASED_AUCTION/call_manager_decrypt.sh",
+    "bytes": 685,
+    "sha256": "b29974cb83514afc623927e0fe72c7d83865b96eb737a667b9bd11de66fbc187"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/cmd/bidder/bidder.go",
+    "copy": "SGX_BASED_AUCTION/cmd/bidder/bidder.go",
+    "bytes": 9071,
+    "sha256": "ef3cc1e28d078d162dbe96c6bda1cdb53be0fb7118232ade6a5d086514b67420"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/cmd/client/client.go",
+    "copy": "SGX_BASED_AUCTION/cmd/client/client.go",
+    "bytes": 7826,
+    "sha256": "c7208a43f75dda4acd2c85522b7ceb50348c5efed50a360d72bdddb749ede86c"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/cmd/manager/manager.go",
+    "copy": "SGX_BASED_AUCTION/cmd/manager/manager.go",
+    "bytes": 10945,
+    "sha256": "3ac46118adb16e38cf3f721b6a4a4c9c942761227ffd41153d16416e64605912"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/.gitattributes",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/.gitattributes",
+    "bytes": 63,
+    "sha256": "5f34bb17b0827ae71a46a750bc443a0ae63f22f287eaea6344b6dc114549b89f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/.gitignore",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/.gitignore",
+    "bytes": 55,
+    "sha256": "a02fa0fbfac0f6d146ebfdc68779a021370092cec6a3f06246d1f7101c8290d1"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/brownie-config.yaml",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/brownie-config.yaml",
+    "bytes": 160,
+    "sha256": "fec1e2b51f9f5389b0bacfa25361616ed7d3eadf974c31a8ad3e8f45b4599c4f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/contracts/Auction.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/contracts/Auction.json",
+    "bytes": 566475,
+    "sha256": "4bec43d37505b44ad5d0f8cc19008e3f92548b0ce75edbbdc1f1cb1115cb2aef"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/contracts/Bidders.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/contracts/Bidders.json",
+    "bytes": 675202,
+    "sha256": "6f4a39c3553697aad81ff63517a3bc8787e38b04e84c3803aa5989b296c12f6d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/contracts/IAuction.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/contracts/IAuction.json",
+    "bytes": 306389,
+    "sha256": "3654f66b7c04bfbd3497c3bd848e80ae74008b32e46ad2f97d8d856d9981ea3b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/deployments/5/0x367D856831879E64b5450366AfAd03eb3a875A65.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/deployments/5/0x367D856831879E64b5450366AfAd03eb3a875A65.json",
+    "bytes": 394632,
+    "sha256": "45f248d104b9edd8b63d3eb1f9778b7cc9fb04d3d171ac36eecfbf35cdef6944"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/deployments/5/0xb086B0cce9b815d68A8e56e53E3335f096a8cB6F.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/deployments/5/0xb086B0cce9b815d68A8e56e53E3335f096a8cB6F.json",
+    "bytes": 323276,
+    "sha256": "5c7d0802fc392a60b8d1ef045fc5c9e63fadaa9de84ca5b0ca7934134b1b2967"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/deployments/map.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/deployments/map.json",
+    "bytes": 165,
+    "sha256": "e8ef716b22be4404ddfcbf77319cf78672e808d8609b4bf362a844c78292f2ed"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/build/interfaces/IAuction.json",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/build/interfaces/IAuction.json",
+    "bytes": 17957,
+    "sha256": "64886007f324cef3f16ccf6ee39eac38252224917b84a3ac25f3aa82c6b67d14"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/contracts/auction.sol",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/contracts/auction.sol",
+    "bytes": 8968,
+    "sha256": "5d41269ecc49c46f3028c1232ff075f5fd4f945f340bedc6bf2bef1209019a6f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/interfaces/auction_interface.sol",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/interfaces/auction_interface.sol",
+    "bytes": 582,
+    "sha256": "e22b0d5209c3560c6193bec18f9fcbdf94b09c3e683e39a3b5ae6b758b692947"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/scripts/deploy_general.py",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/scripts/deploy_general.py",
+    "bytes": 960,
+    "sha256": "906ab6c0d1f44c6ad9a8bb69d2bfd2da761be9ee2963dc20d60a9d16d97b985a"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/contract_scripts/scripts/deploy_local_blockchain.py",
+    "copy": "SGX_BASED_AUCTION/contract_scripts/scripts/deploy_local_blockchain.py",
+    "bytes": 2641,
+    "sha256": "d6b0bd9fe8e2dce60abe5993062208513be0ccdad418a4332836f20fa32a2d27"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/decrypt_20K.txt",
+    "copy": "SGX_BASED_AUCTION/decrypt_20K.txt",
+    "bytes": 8960,
+    "sha256": "92eea6496ee46b4aac2a243e350b2cdbc18f3b51a9bd695b1c9f8b1f0412dd57"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/deploy.sh",
+    "copy": "SGX_BASED_AUCTION/deploy.sh",
+    "bytes": 986,
+    "sha256": "bd4eca3518e90fc1e2f9ab6a9a93eb09c60e108b2852a92bbc18b6d9a5169599"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave.go",
+    "copy": "SGX_BASED_AUCTION/enclave.go",
+    "bytes": 6623,
+    "sha256": "8ef53729311acfa4d55922a67c27287c60bb7c43e1a21ac8e4cf94621f5f0b08"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave.json",
+    "copy": "SGX_BASED_AUCTION/enclave.json",
+    "bytes": 191,
+    "sha256": "052b858cca32e816f7459658585950adee1eb99050a6e2c426caf11c77665beb"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_10K_bidders.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_10K_bidders.txt",
+    "bytes": 18203,
+    "sha256": "5abc17e34206766b34893e3af73f4661a64b5f63aacf31d25bfaa5f205e71f00"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_15K_bidders.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_15K_bidders.txt",
+    "bytes": 18202,
+    "sha256": "86c312b92f10f0b00ccbe5668255375599fa29c2194421d7fba79b6d939c63c9"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_1K_bidders.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_1K_bidders.txt",
+    "bytes": 18019,
+    "sha256": "d0c9376c50720de9618d042bad1d9e7650b8f9a8ce0d547fd6cfd492fe400cad"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_20K_bidders.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_20K_bidders.txt",
+    "bytes": 18196,
+    "sha256": "f0e877358adc938745d2fa387507918685c0f718a18d013eb29d4781aebf2515"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_5K_bidders.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_5K_bidders.txt",
+    "bytes": 18199,
+    "sha256": "3aabaa26f0b94930ad4d3658c78430b397a7adb746ca2dc497a6cccd18322264"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_before_changes.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_before_changes.txt",
+    "bytes": 5384,
+    "sha256": "e1c3dc63434819876d822f9b8f48c7205dfda9a0203869882210c1d0832c754a"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_crash_test.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_crash_test.txt",
+    "bytes": 54,
+    "sha256": "cb1321cfd9b659d7113bed6885e71e823ec1d4238e866b1e293fd2a06a881479"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_detailed_10K.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_detailed_10K.txt",
+    "bytes": 16325,
+    "sha256": "42607675709b66175499240f06797df63bf571e66e9aef635edff63d87fd4208"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_detailed_15K.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_detailed_15K.txt",
+    "bytes": 16323,
+    "sha256": "35ab76a832e32aec3b694b13ec283fb8b9573b6ba2a2dba6acf3c9f9dff5a836"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_detailed_1K.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_detailed_1K.txt",
+    "bytes": 16312,
+    "sha256": "cba6b44353d5e6926cb94e2f4a742847ef60bd8897a631fa4ac37de7f9206479"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_detailed_20K.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_detailed_20K.txt",
+    "bytes": 16310,
+    "sha256": "318be8c60a49860145dafbd46aa3325efd2c25df4358f6655ee62568c9ceb456"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_detailed_5K.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_detailed_5K.txt",
+    "bytes": 16316,
+    "sha256": "33f99c9a925f68ef13d30dec1d4a3166512a13110734b9d07871af02986a6fdb"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/enclave_time_1K.txt",
+    "copy": "SGX_BASED_AUCTION/enclave_time_1K.txt",
+    "bytes": 5000,
+    "sha256": "6d991a98ce164060d367fcaa806447bbb3f62197e263ded48dfa0ddfc86ad466"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/go.mod",
+    "copy": "SGX_BASED_AUCTION/go.mod",
+    "bytes": 1099,
+    "sha256": "3273524af0284ac623430555a3f4de577ff1b2694709e172c0daa92ab0a3f10a"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/go.sum",
+    "copy": "SGX_BASED_AUCTION/go.sum",
+    "bytes": 60720,
+    "sha256": "57382136a4d96ead162422398b30c42547ecadcb4c2db9efebc9b5df08add350"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/init.sh",
+    "copy": "SGX_BASED_AUCTION/init.sh",
+    "bytes": 436,
+    "sha256": "3affc10054f8930ffdd96475ab089b6c0df1ee1e467b82bf0777f7edcbd2232b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/make_call.sh",
+    "copy": "SGX_BASED_AUCTION/make_call.sh",
+    "bytes": 290,
+    "sha256": "9ef4c69426e07040e6caa4f8eb41feaadb5e8a0eb55ae970cfaf452b0afbd524"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/manager_before_change.txt",
+    "copy": "SGX_BASED_AUCTION/manager_before_change.txt",
+    "bytes": 8321,
+    "sha256": "68d22875834552403bbbb5235ffb4a46f77700cad7e5a5ea32dffe92bfe0fb4f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/pkg/solidity_wrapper/auction_contract_wrapper.go",
+    "copy": "SGX_BASED_AUCTION/pkg/solidity_wrapper/auction_contract_wrapper.go",
+    "bytes": 28261,
+    "sha256": "8c4be9a2a74280d49e672f82b5eca25111163676691624cd243cd665e66b143d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/pkg/solidity_wrapper/bidders_contract_wrapper.go",
+    "copy": "SGX_BASED_AUCTION/pkg/solidity_wrapper/bidders_contract_wrapper.go",
+    "bytes": 26353,
+    "sha256": "2716571856d04b06655ef434d7903e153052b0ef4a89a8bd8b0323df98cf7a8a"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/pkg/solidity_wrapper/helper.go",
+    "copy": "SGX_BASED_AUCTION/pkg/solidity_wrapper/helper.go",
+    "bytes": 1308,
+    "sha256": "9e0b897ebf72449ef32e4f4cef5be912ea547a2ae8f1569e7ba368d13759d14a"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/pkg/solidity_wrapper/interface.go",
+    "copy": "SGX_BASED_AUCTION/pkg/solidity_wrapper/interface.go",
+    "bytes": 10800,
+    "sha256": "e8891e780ec6442580e103a23b85fbfae168ec19e1166065281da01fc9c0105f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/public.pem",
+    "copy": "SGX_BASED_AUCTION/public.pem",
+    "bytes": 621,
+    "sha256": "1fbc1197287ba4c6aba6b97c66fabc666648729e73fdefba1f47a6b763066552"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/report_gen_time.sh",
+    "copy": "SGX_BASED_AUCTION/report_gen_time.sh",
+    "bytes": 267,
+    "sha256": "cee76e18820c3faf015dc3212d3367990b39e41ce8a3e040263d0336ec93f03b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/report_gen_time_10K.txt",
+    "copy": "SGX_BASED_AUCTION/report_gen_time_10K.txt",
+    "bytes": 29323,
+    "sha256": "765fc7a15d5604ec6ecbb79e116d2effc0ca8460d164a61c832c1a1e54160dc3"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/report_gen_time_15K.txt",
+    "copy": "SGX_BASED_AUCTION/report_gen_time_15K.txt",
+    "bytes": 29326,
+    "sha256": "1af9c0470f6f8e32a999d68ee55f389054e977e203475876434f4903cb5b20dd"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/report_gen_time_1K.txt",
+    "copy": "SGX_BASED_AUCTION/report_gen_time_1K.txt",
+    "bytes": 29319,
+    "sha256": "2d2b180689be1a757dff8eb3b318eb4683c448f4dbca1ba2d2cae09d4d8b5e8c"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/report_gen_time_20K.txt",
+    "copy": "SGX_BASED_AUCTION/report_gen_time_20K.txt",
+    "bytes": 29313,
+    "sha256": "48b81f85a389e4142b44e34f1d13bfa2ba3c0fa08e2ddc67e17da10f9a8944bc"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/report_gen_time_5K.txt",
+    "copy": "SGX_BASED_AUCTION/report_gen_time_5K.txt",
+    "bytes": 29310,
+    "sha256": "506e780fb956c9676ce25f06f63898235fb1a7f458480624d9c53010ff023d6b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/setup.sh",
+    "copy": "SGX_BASED_AUCTION/setup.sh",
+    "bytes": 451,
+    "sha256": "eecd3dcc91f32df28bf6e64cc1a8de5ea742fa13bd3388b805cc249858202462"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/stderr.txt",
+    "copy": "SGX_BASED_AUCTION/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/stdout.txt",
+    "copy": "SGX_BASED_AUCTION/stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/SGX_BASED_AUCTION_AZURE_COPY/SGX_BASED_AUCTION/test.txt",
+    "copy": "SGX_BASED_AUCTION/test.txt",
+    "bytes": 1003,
+    "sha256": "1d996269fe02e356e22d574bd3abbfce26a662cd3486be7fbb88d7d59c954ba2"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/.gitattributes",
+    "copy": "PrivacyPreservingAuction/.gitattributes",
+    "bytes": 63,
+    "sha256": "5f34bb17b0827ae71a46a750bc443a0ae63f22f287eaea6344b6dc114549b89f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/.gitignore",
+    "copy": "PrivacyPreservingAuction/.gitignore",
+    "bytes": 55,
+    "sha256": "a02fa0fbfac0f6d146ebfdc68779a021370092cec6a3f06246d1f7101c8290d1"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/README.md",
+    "copy": "PrivacyPreservingAuction/README.md",
+    "bytes": 486,
+    "sha256": "08681f6429bf072740d618ad74c3e2386f14744ccb89f4ec23067edcf751280b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/contracts/_auctionNew.sol",
+    "copy": "PrivacyPreservingAuction/contracts/_auctionNew.sol",
+    "bytes": 5809,
+    "sha256": "f6eb2ecd7a9ec41fe6e51e80477794a60f2dec7d2ae0b307998bb141c4587c1b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/contracts/auction.sol",
+    "copy": "PrivacyPreservingAuction/contracts/auction.sol",
+    "bytes": 5810,
+    "sha256": "c46ae43ce142cbe2c36eed8b617051fb07cf0e8e236a55301769574e24b5c9a1"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/enclave.json",
+    "copy": "PrivacyPreservingAuction/enclave.json",
+    "bytes": 190,
+    "sha256": "d236663848b8f9fbb6d7d58f4260d90eb477ef0137ccc39b7e22cc9b5fc4023d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/go.mod",
+    "copy": "PrivacyPreservingAuction/go.mod",
+    "bytes": 347,
+    "sha256": "7aa7ee95227aa5d92f16226c3126878b57b798b5e1160055f82c5cd51ef25bad"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/go.sum",
+    "copy": "PrivacyPreservingAuction/go.sum",
+    "bytes": 2800,
+    "sha256": "09b22f35897b414402fc369703b05d99f62ea8802c82a61172eb959910c63d6d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/public.pem",
+    "copy": "PrivacyPreservingAuction/public.pem",
+    "bytes": 621,
+    "sha256": "4df7703ffdd484a3698d3ec4cc1c9e3b54eb26fe9c59a216ce1bd21e408f6da7"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/ra_client/client.go",
+    "copy": "PrivacyPreservingAuction/ra_client/client.go",
+    "bytes": 5348,
+    "sha256": "931b2cb714928306fb0cf5e6051e6024990e37a5ab8617de44a8ce13f71698ca"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/scripts/deploy.py",
+    "copy": "PrivacyPreservingAuction/scripts/deploy.py",
+    "bytes": 2848,
+    "sha256": "85c0a0ee2eecd12b0b0ef71887feec8c5ff6705f14068ce29059f0c26db1237d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PrivacyPreservingAuction/server.go",
+    "copy": "PrivacyPreservingAuction/server.go",
+    "bytes": 3830,
+    "sha256": "337d86cfdfc517d4cabb3b7ffd2d9339895e5ea3d83ba5c06892886354220759"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/enclave_output/data.pdf",
+    "copy": "figures/enclave_output/data.pdf",
+    "bytes": 17311,
+    "sha256": "5e7592a8c179c36df42bf68ed5fb3d5de63f4b85f15939979c89216e42ea6683"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/enclave_output/data.png",
+    "copy": "figures/enclave_output/data.png",
+    "bytes": 19225,
+    "sha256": "f01ef0e54261c6731e9394a6f3905b83eab35dcda79788653534f5ee69249da5"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/enclave_output/figures.py",
+    "copy": "figures/enclave_output/figures.py",
+    "bytes": 3713,
+    "sha256": "92c76209b7a790193d22fcdef3514c9e9c9539687208df78c9a0124c6c46abab"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/enclave_output/output.txt",
+    "copy": "figures/enclave_output/output.txt",
+    "bytes": 2499108,
+    "sha256": "7dacb8396354a457190172115b89ea3b48eecad9bc5b8456a4a0318f2a899665"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/contracts/_auction copy.sol",
+    "copy": "legacy_from_PEC_Auction/contracts/_auction copy.sol",
+    "bytes": 6332,
+    "sha256": "991a39eb69b4ca7f600cfea47ed38afa5e71e08f353bb85ac932738abaaf71b2"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/scripts/deploy.py",
+    "copy": "legacy_from_PEC_Auction/scripts/deploy.py",
+    "bytes": 3559,
+    "sha256": "eff3c12bf305bcbd019f6249d6abac2bba0bd2dfc49df1ef14428ac533674da4"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/scripts/_ropsten_deploy.py",
+    "copy": "legacy_from_PEC_Auction/scripts/_ropsten_deploy.py",
+    "bytes": 1988,
+    "sha256": "231a6b07f948c32b5fbddf4fbcf8dc66c879d98d72f77967e99d03abc1b8e51d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/tests/test_functionality.py",
+    "copy": "legacy_from_PEC_Auction/tests/test_functionality.py",
+    "bytes": 174,
+    "sha256": "1e067d8c7513ded09231633117274eab5442ba3d3aad516a96dd20d5c0ef409f"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/interfaces/auction_interface.sol",
+    "copy": "legacy_from_PEC_Auction/interfaces/auction_interface.sol",
+    "bytes": 204,
+    "sha256": "b3e1560742b2a7178a56926fd2ace4bf08163727517fc798064c094458a27c66"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/serer.go",
+    "copy": "legacy_from_PEC_Auction/serer.go",
+    "bytes": 3115,
+    "sha256": "4970b5c67f3d718afd7f0215ffdbf190ce4b842878df646f65079d262523f38e"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/ra_cliet_2/client2.go",
+    "copy": "legacy_from_PEC_Auction/ra_cliet_2/client2.go",
+    "bytes": 2498,
+    "sha256": "93258c3230ac3b78b547750644a492773b89ef6da1846fdc40cba3f163368d16"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/go.mod",
+    "copy": "legacy_from_PEC_Auction/go.mod",
+    "bytes": 243,
+    "sha256": "db4ab3714a8424d235c0a283e3465903ea56e9944fd8a3bbaa01c43f16ba274b"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/go.sum",
+    "copy": "legacy_from_PEC_Auction/go.sum",
+    "bytes": 2698,
+    "sha256": "72046afea24accee06645e3ca6cd6eb8b9d5e0602cb2f7e46f9c8bab88fa9761"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/PEC-auction/brownie-config.yaml",
+    "copy": "legacy_from_PEC_Auction/brownie-config.yaml",
+    "bytes": 48,
+    "sha256": "b158ed61d7f09f11ea1f7e4a54ac5d0edb8a3776676f31566ccda0a718288192"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/figures-PEC.pdf",
+    "copy": "figures/legacy_diagrams/figures-PEC.pdf",
+    "bytes": 107368,
+    "sha256": "cb21fc2cf67b9760c49d5110f09a0a3f109f5d062cb11da792ae403957432c5d"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/figures-PEC.pptx",
+    "copy": "figures/legacy_diagrams/figures-PEC.pptx",
+    "bytes": 298808,
+    "sha256": "5dd24db2728d2e25b654d54589d4661a75d7c8b351d1e9e387d598344a19ba58"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/AllInOne.pdf",
+    "copy": "figures/legacy_diagrams/AllInOne.pdf",
+    "bytes": 95298,
+    "sha256": "782897a7c67f87720f981073bbe4c33520b4a12e5825e5443d092c9c6a6b9fbe"
+  },
+  {
+    "source": "/Users/emrahsariboz/Desktop/PEC_Auction/part1.pptx",
+    "copy": "figures/legacy_diagrams/part1.pptx",
+    "bytes": 74803,
+    "sha256": "17dc8520157efca217e1125d99a159382644fb529026ec6ba168a1e71a52887e"
+  }
+]

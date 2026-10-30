@@ -1,0 +1,310 @@
+package main
+
+import (
+	"bytes"
+	mrand "math/rand"
+	"strconv"
+
+	ecies "github.com/ecies/go/v2"
+
+	"context"
+	"crypto"
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/tls"
+	"crypto/x509"
+	"crypto/x509/pkix"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"log"
+	"math/big"
+	"net/http"
+	"os"
+	"os/exec"
+	"time"
+
+	"github.com/emrahsariboz/PEC/pkg/solidity_wrapper"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
+	ethcrypto "github.com/ethereum/go-ethereum/crypto"
+)
+
+func checkIfError(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+func httpGetPK(tlsConfig *tls.Config, url string) *ecies.PublicKey {
+	fmt.Println("Getting enclave pk...")
+	client := http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+
+	resp, err := client.Get(url)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	checkIfError(err)
+
+	pk, err := ecies.NewPublicKeyFromBytes(body)
+	checkIfError(err)
+
+	return pk
+}
+
+func main() {
+	client := solidity_wrapper.CreateConnection()
+	fmt.Println(client)
+
+	// Initialize Contracts
+	auction_identifier, auction_contract, bidders_contract := solidity_wrapper.ReturnAuctionDetails()
+
+	//auction_nonce, err := auction_contract.Auctions(&bind.CallOpts{}, auction_identifier)
+	//checkIfError(err)
+	//fmt.Println("The current nonce is: ", auction_nonce.AuctionNonce)
+
+	//prg := "cmd/manager/./test"
+	// prg := "go run cmd/client/client.go"
+
+	// cmd := exec.Command(prg)
+	// stdout, err := cmd.Output()
+
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return
+	// }
+
+	// fmt.Print(string(stdout))
+
+	/*
+		Write Go code to pull current nonce.
+		Have https end-point to:
+			Create a bash script to starts enclave.
+			Feed nonce to bash script when starting enclave.
+	*/
+
+	// Generate x509 certificate.
+	cert, priv := createCertificate()
+	tlsCfg := tls.Config{
+		Certificates: []tls.Certificate{
+			{
+				Certificate: [][]byte{cert},
+				PrivateKey:  priv,
+			},
+		},
+	}
+	//isInitialized := false
+
+	// Create HTTPS server.
+	http.HandleFunc("/initEnclave", func(w http.ResponseWriter, r *http.Request) {
+
+		// if isInitialized {
+		// 	fmt.Println("Enclave is already initialized...")
+		// 	return
+		// }
+		// //isInitialized = true
+		// fmt.Println("Initializating the enclave...")
+
+		// auction_nonce, err := auction_contract.Auctions(&bind.CallOpts{}, auction_identifier)
+
+		// //fmt.Println("enclave is initialized with nonce: ", auction_nonce.AuctionNonce.String())
+
+		// if err != nil {
+		// 	panic(err)
+		// }
+
+		// fmt.Println("Enclave will be initialized with: ", auction_nonce.AuctionNonce)
+		cmd := exec.Command("bash", "init.sh", "-nonce", "5")
+
+		// stdOutput, err := cmd.CombinedOutput()
+
+		cmd.Stdout = os.Stdout
+
+		if err := cmd.Run(); err != nil {
+			fmt.Println("could not run command: ", err)
+		}
+
+	})
+
+	// Create HTTPS server.
+	// This handler will take aucton identifer,winner address and signature.
+	http.HandleFunc("/sendWinnerToSmartContract", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Asked by enclave to declare winner.")
+
+		// Read private key of bidder.
+		// dont forget to export private_key!
+		val, ok := os.LookupEnv("MANAGER_PRIVATE_KEY")
+		fmt.Println("The private key of Manager is ", val)
+
+		if !ok {
+			fmt.Println("Something is wrong.")
+		}
+
+		// Adjust type of private key.
+		privateKey, _, ethereum_address := solidity_wrapper.PrivateKeyToOthers(val)
+
+		// Get Ethereum address from public key.
+		fromAddress := ethcrypto.PubkeyToAddress(*ethereum_address)
+
+		fmt.Println("Manager from address is ", fromAddress)
+
+		// Nonce of account.
+		nonce, _ := client.PendingNonceAt(context.Background(), fromAddress)
+
+		fmt.Println("The private key", privateKey)
+		fmt.Println("The from address", fromAddress)
+
+		// Chain Id.
+		chainID, err := client.NetworkID(context.Background())
+		checkIfError(err)
+
+		auth, err := bind.NewKeyedTransactorWithChainID(privateKey, chainID)
+		checkIfError(err)
+
+		auth.Nonce = big.NewInt(int64(nonce))
+		auth.GasLimit = uint64(300000)
+		auth.GasPrice = big.NewInt(8000000007)
+
+		var winner_details []string
+		body, _ := ioutil.ReadAll(r.Body)
+
+		err = json.Unmarshal(body, &winner_details)
+
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("Received winner details")
+		fmt.Println("The winner details", winner_details)
+
+		sig := hexutil.MustDecode(winner_details[2])
+		//  SignatureVerification(opts *bind.TransactOpts, _auctionAddress common.Address, winner common.Address, id *big.Int, signature []byte) (*types.Transaction, error) {
+		tx, err := bidders_contract.SignatureVerification(auth, auction_identifier, common.HexToAddress(winner_details[1]), big.NewInt(1), sig)
+
+		if err != nil {
+			fmt.Println("Error!!!", err)
+		}
+		log.Println("Waiting transaction to be confirmed. ", tx.Hash())
+
+		for {
+
+			receipt, err := client.TransactionReceipt(context.Background(), tx.Hash())
+
+			if err == nil && receipt.Status == 1 {
+				log.Println("Transaction is confirmed.")
+				break
+			}
+
+			if err == nil && receipt.Status == 0 {
+				fmt.Println("Something is wrong. Transaction is reverted.")
+				break
+			}
+
+			time.Sleep(time.Second)
+		}
+
+	})
+
+	http.HandleFunc("/findWinner2", func(w http.ResponseWriter, r *http.Request) {
+		tlsConfig := &tls.Config{InsecureSkipVerify: true}
+		enclave_url := "https://0.0.0.0:3550"
+		response := make(map[string][]byte)
+
+		totalBidders := 20000
+
+		mrand.Seed(time.Now().UnixNano())
+
+		bids2 := make([]string, totalBidders)
+		var bidder_addresses []common.Address
+		pk := httpGetPK(tlsConfig, enclave_url+"/pk")
+
+		// Uncomment the code below for production.
+		// bidder_addresses2, _ := auction_contract.ReturnBidders(&bind.CallOpts{})
+		// _ = bidder_addresses2
+
+		for i := 0; i < totalBidders; i++ {
+			encryptedBid, _ := ecies.Encrypt(pk, []byte(strconv.Itoa(mrand.Intn(9000000)+100000)))
+			encodedString := hex.EncodeToString(encryptedBid)
+			bids2[i] = encodedString
+			bidder_addresses = append(bidder_addresses, common.BigToAddress(new(big.Int).SetInt64(mrand.Int63())))
+			response[bids2[i]] = bidder_addresses[i].Bytes()
+		}
+
+		jsonValue, err := json.Marshal(response)
+		checkIfError(err)
+		fmt.Println("Sent the encrypted bids...")
+		client := http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+		resp, err := client.Post(enclave_url+"/findWinner", "application/json", bytes.NewBuffer(jsonValue))
+		checkIfError(err)
+
+		winner, _ := io.ReadAll(resp.Body)
+		fmt.Println("The winner address is", common.BytesToAddress(winner))
+		defer r.Body.Close()
+		//client.Get(enclave_url + "/closeApp")
+	})
+
+	http.HandleFunc("/findWinner", func(w http.ResponseWriter, r *http.Request) {
+		response := make(map[string][]byte)
+
+		fmt.Println("Asking encalave to find the winner.")
+
+		bids2, err := auction_contract.ReturnEncryptedBids(&bind.CallOpts{}, auction_identifier)
+		checkIfError(err)
+
+		var bidder_addresses []common.Address
+
+		bidder_addresses, err = auction_contract.ReturnBidders(&bind.CallOpts{})
+		checkIfError(err)
+
+		totalBidders := len(bidder_addresses)
+
+		for i := 0; i < totalBidders; i++ {
+			response[bids2[i]] = bidder_addresses[i].Bytes()
+		}
+
+		jsonValue, err := json.Marshal(response)
+		checkIfError(err)
+		fmt.Println("Sent the encrypted bids...")
+
+		tlsConfig := &tls.Config{InsecureSkipVerify: true}
+		client := http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+		enclave_url := "https://20.234.100.177:3550"
+
+		resp, err := client.Post(enclave_url+"/findWinner", "application/json", bytes.NewBuffer(jsonValue))
+		checkIfError(err)
+
+		winner, _ := io.ReadAll(resp.Body)
+
+		fmt.Println("The winner address is")
+		fmt.Println(common.BytesToAddress(winner))
+
+		//client.Get(enclave_url + "/closeApp")
+	})
+
+	server := http.Server{Addr: ":8045", TLSConfig: &tlsCfg}
+
+	fmt.Println("listening to 0.0.0.0:8045")
+	err := server.ListenAndServeTLS("", "")
+	fmt.Println(err)
+}
+
+func createCertificate() ([]byte, crypto.PrivateKey) {
+	template := &x509.Certificate{
+		SerialNumber: &big.Int{},
+		Subject:      pkix.Name{CommonName: "localhost"},
+		NotAfter:     time.Now().Add(time.Hour),
+		DNSNames:     []string{"localhost"},
+	}
+	priv, _ := rsa.GenerateKey(rand.Reader, 2048)
+	cert, _ := x509.CreateCertificate(rand.Reader, template, template, &priv.PublicKey, priv)
+	return cert, priv
+}
+

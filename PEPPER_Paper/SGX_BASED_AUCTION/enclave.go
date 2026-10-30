@@ -1,0 +1,273 @@
+package main
+
+import (
+	"crypto"
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/sha256"
+	"crypto/tls"
+	"crypto/x509"
+	"crypto/x509/pkix"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"strconv"
+
+	"github.com/ethereum/go-ethereum/common/hexutil"
+	ethCrypto "github.com/ethereum/go-ethereum/crypto"
+
+	"flag"
+	"log"
+	"math/big"
+	"net/http"
+	"time"
+
+	ecies "github.com/ecies/go/v2"
+	"github.com/edgelesssys/ego/enclave"
+	"github.com/ethereum/go-ethereum/common"
+)
+
+var k, _ = ecies.GenerateKey()
+
+func recoveryMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte("Internal Server Error"))
+				// Log the error for server-side diagnostics
+				log.Println("Recovered from panic:", err)
+				// Stop the application
+				os.Exit(1)
+			}
+		}()
+		next(w, r)
+	}
+}
+
+func main() {
+	// start := time.Now()
+
+	var nonceL = flag.String("nonce", "12345", "Aggregated Nonce Variable")
+	flag.Parse()
+	nonce := []byte(*nonceL)
+
+	// fmt.Println("Bytenonce is ", nonce)
+
+	// fmt.Println("Enclave is initialized with: ", string(nonce))
+	// Generate x509 certificate.
+	cert, priv := createCertificate()
+
+	// x = cert || nonce
+	appended := append(cert, nonce...)
+
+	// h = H(x)
+	hash := sha256.Sum256(appended)
+
+	// Include hash in the extra field in report!
+	report, err := enclave.GetRemoteReport(hash[:])
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// elapsed := time.Since(start)
+
+	// fmt.Println("Report ", elapsed, "ms")
+
+	//Finding Winner
+	http.HandleFunc("/findWinner", func(w http.ResponseWriter, r *http.Request) {
+
+		start := time.Now()
+
+		var response map[string][]byte
+
+		body, _ := ioutil.ReadAll(r.Body)
+
+		err := json.Unmarshal(body, &response)
+
+		if err != nil {
+			fmt.Println("Something is wrong", err)
+		}
+
+		min := 100000000000000000
+
+		var winner_bid string
+		for z, l := range response {
+			plaintext, _ := ecies.Decrypt(k, l)
+			val, _ := strconv.Atoi(string(plaintext))
+
+			if val < min {
+				min = val
+				winner_bid = z
+			}
+		}
+
+		msgHash, ethHash := packetWithEth(common.BytesToAddress(response[winner_bid]).Hex(), 1)
+		log.Println("msg hash: ", msgHash.Hex())
+		log.Println("eth hash: ", ethHash.Hex())
+
+		val := "d8182dce616e33743a1121989974d1a68f86909d07df69de8308a084e80af449"
+		auction_identifier := "0x6A1C312D91408Bd62680926E6853C8E2315bC04d"
+
+		fmt.Println("Val is ", val)
+		key, err := ethCrypto.HexToECDSA(val)
+
+		if err != nil {
+			fmt.Println("Something is wrong.", err)
+		}
+
+		// Sign message.
+		signature, err := ethCrypto.Sign(ethHash.Bytes(), key)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if signature[64] == 0 || signature[64] == 1 {
+			signature[64] += 27
+		}
+
+		log.Println("sign: ", hexutil.Encode(signature))
+		winner_details := make([]string, 3)
+
+		fmt.Println("string(response[winner_bid]", common.BytesToAddress(response[winner_bid]).Hex())
+
+		winner_details[0] = auction_identifier
+		winner_details[1] = common.BytesToAddress(response[winner_bid]).Hex()
+		winner_details[2] = hexutil.Encode(signature)
+
+		_ = winner_details
+
+		elapsed := time.Since(start)
+		fmt.Println("page took", elapsed.Seconds())
+		fmt.Println()
+
+		// jsonValue, err := json.Marshal(winner_details)
+
+		// if err != nil {
+		// 	panic(err)
+		// }
+
+		// fmt.Println("Sent the auction winner details...")
+		// tlsConfig := &tls.Config{InsecureSkipVerify: true}
+		// client := http.Client{Transport: &http.Transport{TLSClientConfig: tlsConfig}}
+
+		// managerUrl := "https://0.0.0.0:8045"
+		// resp, err := client.Post(managerUrl+"/sendWinnerToSmartContract", "application/json", bytes.NewBuffer(jsonValue))
+
+		// if err != nil {
+		// 	fmt.Println(err)
+		// }
+
+		// fmt.Println(resp)
+
+	})
+
+	// Create HTTPS server.
+	http.HandleFunc("/cert", recoveryMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Certificate is requested")
+		w.Write(cert)
+	}))
+
+	http.HandleFunc("/report", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Report is requested. ")
+		w.Write(report)
+	})
+
+	// Create HTTPS server.
+	http.HandleFunc("/closeApp", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("")
+		fmt.Println("We have a winner, killing the enclave now!")
+		panic("exiting")
+	})
+
+	http.HandleFunc("/getNonceAndGenReport", recoveryMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		// Read nonce from client
+		nonce, err := ioutil.ReadAll(r.Body)
+
+		fmt.Println("random nonce is", nonce)
+		if err != nil {
+			http.Error(w, "Failed to read nonce", http.StatusBadRequest)
+			return
+		}
+
+		// x = cert || nonce
+		appended := append(cert, nonce...)
+
+		hash := sha256.Sum256(appended)
+
+		// Include hash in the extra field in report!
+		report, _ := enclave.GetRemoteReport(hash[:])
+
+		// // Include hash in the extra field in the report
+		// // Assuming enclave.GetRemoteReport(hash[:]) is replaced with the actual implementation
+		// report := []byte(fmt.Sprintf("Report for hash: %x", hash))
+
+		fmt.Println("writing back report.")
+		w.Write(report)
+	}))
+
+	http.HandleFunc("/nonce", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Nonce is requested.")
+		w.Write(nonce)
+	})
+	// Retrieveing the pk
+	http.HandleFunc("/pk", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("pk requested")
+		log.Println("key pair has been generated")
+		log.Println(k.PublicKey)
+		var test []byte
+		test = k.PublicKey.Bytes(false)
+
+		w.Write(test)
+		//log.Println(ecies.NewPublicKeyFromBytes(test))
+	})
+
+	tlsCfg := tls.Config{
+		Certificates: []tls.Certificate{
+			{
+				Certificate: [][]byte{cert},
+				PrivateKey:  priv,
+			},
+		},
+	}
+
+	server := http.Server{Addr: "0.0.0.0:3880", TLSConfig: &tlsCfg}
+
+	server.ReadTimeout = 5 * time.Minute
+	server.WriteTimeout = 5 * time.Minute
+
+	fmt.Println("listening to 0.0.0.0:3880")
+
+	err = server.ListenAndServeTLS("", "")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+}
+
+func createCertificate() ([]byte, crypto.PrivateKey) {
+	template := &x509.Certificate{
+		SerialNumber: &big.Int{},
+		Subject:      pkix.Name{CommonName: "localhost"},
+		NotAfter:     time.Now().Add(time.Hour),
+		DNSNames:     []string{"localhost"},
+	}
+	priv, _ := rsa.GenerateKey(rand.Reader, 2048)
+	cert, _ := x509.CreateCertificate(rand.Reader, template, template, &priv.PublicKey, priv)
+	return cert, priv
+}
+
+func packetWithEth(addr string, id int64) (common.Hash, common.Hash) {
+	hash := ethCrypto.Keccak256Hash(
+		common.HexToAddress(addr).Bytes(),
+		common.LeftPadBytes(big.NewInt(id).Bytes(), 32),
+	)
+
+	return hash, ethCrypto.Keccak256Hash(
+		[]byte("\x19Ethereum Signed Message:\n32"),
+		hash.Bytes(),
+	)
+}
